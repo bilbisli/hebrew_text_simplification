@@ -42,7 +42,7 @@ text1 ="""ג המולד הוא חג המקובל כמעט בכל זרמי הנצ
 
 def main(parser=None):
     parser = parser or argparse.ArgumentParser(prog='hebrew_ts', description='Simplifies complex Hebrew text',)
-    parser.add_argument('text', type=str, metavar='TEXT', help=f'Text (or file of text) to simplify. example: {text1}')
+    parser.add_argument('text', type=str, metavar='TEXT', help=f'Text (or file of text) to simplify. example1: text_file.txt\nexample2:{text1}')
     parser.add_argument('--word_sub', dest='word_sub', action='store_true', help='Do word substitution. example: --word_sub', default=True)
     parser.add_argument('--no-word_sub', dest='word_sub', action='store_false', help='Do not do word substitution. example: --no-word_sub')
     parser.add_argument('--sentence_filter', dest='sentence_filter', action='store_true', help='Do sentence filtering. example: --sentence_filter', default=True)
