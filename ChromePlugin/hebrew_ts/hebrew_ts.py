@@ -2,8 +2,8 @@ import sys
 import os.path
 import argparse
 
-from models import mask_model, ner_model, ner_tokenizer
-from ts_methods import simplify_words, generate_summary
+from hebrew_ts.models import mask_model, ner_model, ner_tokenizer
+from hebrew_ts.ts_methods import simplify_words, generate_summary
 
 
 def argparse_wrapper(func):
@@ -12,10 +12,15 @@ def argparse_wrapper(func):
     return feed_func
 
 @argparse_wrapper
+def hebrew_ts_cli(*args, **kwargs):
+    return text_simplification_pipeline(*args, **kwargs)
+
 def text_simplification_pipeline(text, score_threshold=0.32, neighbours_threshold=0.7, word_sub=True, sentence_filter=True, new_line_tok='\n', new_line_model_token='<NL>'):
     if os.path.isfile(text):
+        print('in')
         with open(text, 'r', encoding='utf-8') as f:
             text = f.read()
+            print(text)
     simp_list = []
     summ_list = []
     paragraphs = [p for p in text.split(new_line_tok) if p != '' and not p.isspace()]
@@ -50,7 +55,7 @@ def main(parser=None):
     parser.add_argument('--score_threshold', dest='score_threshold', default=0.32, type=float, help='Threshold for word substitution. example: -score_threshold=0.32')
     parser.add_argument('--neighb_thresh', dest='neighbours_threshold', default=0.7, type=float, help='Do not do word substitution. example: -neighb_thresh=0.7')
     args = parser.parse_args()
-    res = text_simplification_pipeline(args)
+    res = hebrew_ts_cli(args)
     print(res)
 
 if __name__ == '__main__':
