@@ -13,8 +13,8 @@ from sentence_transformers import util
 import matplotlib.pyplot as plt
 from pprint import pprint as display
 
-from models import sentence_model
-from preprocessing import Preprocessing
+from hebrew_ts.models import sentence_model
+from hebrew_ts.preprocessing import Preprocessing
 
 
 def read_article(text, preprocess=True):        
