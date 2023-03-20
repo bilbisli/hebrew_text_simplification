@@ -3,5 +3,5 @@ import TextSimplification.views as views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    re_path(r'^get_wiki_summary/$', views.get_wiki_summary, name='get_wiki_summary'),
+    re_path(r'^get_simplified/$', views.get_simplified, name='get_simplified'),
 ]

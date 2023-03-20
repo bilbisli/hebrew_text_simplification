@@ -4,12 +4,16 @@
     <title>Text Simplification</title>
     <script src="jquery-3.1.0.min.js"></script>
     <script src="popup.js"></script>
+    <link rel="stylesheet" href="popup.css" />
   </head>
   <body>
-    <h1>Text Simplification</h1>
+    <div class="container">
+      <h2>Hebrew Text Simplification</h2>
 
-    <h3>Enter KeyWord</h3>
-    <input id="keyword" type="text" />
-    <input id="keywordsubmit" type="submit" value="Search" />
+      <h3>Enter Text</h3>
+      <input id="textInput" type="text" placeholder="Enter your text here" />
+      <br />
+      <input id="SimpText" type="submit" value="Simplify" />
+    </div>
   </body>
 </html>

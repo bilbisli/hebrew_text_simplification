@@ -18,7 +18,7 @@ def index(request):
 
 
 # https://pypi.org/project/wikipedia/#description
-def get_wiki_summary(request):
+def get_simplified(request):
     topic = request.GET.get('topic', None)
 
     print('topic:', topic)
