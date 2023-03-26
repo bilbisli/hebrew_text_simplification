@@ -1,16 +1,16 @@
 $(function () {
   $("#SimpText").click(function () {
-    var search_topic = $("#textInput").val();
-
-    if (search_topic) {
-      chrome.runtime.sendMessage({ topic: search_topic }, function (response) {
-        result = response.farewell;
+    var textToSimplify = $("#textInput").val();
+	console.log('popup activate!');
+    if (textToSimplify) {
+      chrome.runtime.sendMessage({ text: textToSimplify }, function (response) {
+        result = response.simplified_text_response;
 
         var html =
           "<div id='simplified-text' dir='rtl'>" +
           "<h3>Simplified Text</h3>" +
           "<p class='result'>" +
-          result.summary +
+          result.simple_text +
           "</p>" +
           "</div>";
 

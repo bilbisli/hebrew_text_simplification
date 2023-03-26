@@ -19,12 +19,12 @@ def index(request):
 
 # https://pypi.org/project/wikipedia/#description
 def get_simplified(request):
-    topic = request.GET.get('topic', None)
+    text = request.GET.get('text', None)
 
-    print('topic:', topic)
-    summ = text_simplification_pipeline(topic)
+    print('text:', text)
+    simple = text_simplification_pipeline(text)
     data = {
-        'summary': summ,
+        'simple_text': simple,
         'raw': 'Successful',
     }
 

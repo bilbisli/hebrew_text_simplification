@@ -1,35 +1,43 @@
 {
-  "manifest_version": 2,
-
   "name": "Hebrew Text Simplification",
-  "description": "This extension gives you a simplified text in Hebrew",
-  "version": "1.0",
-  "icons": {
-    "128": "icon128.png",
-    "48": "icon48.png",
-    "16": "icon16.png"
-  },
-
-  "browser_action": {
-    "default_icon": "icon16.png",
-    "default_popup": "popup.html"
-  },
+  "version": "1.1.1",
+  "manifest_version": 2,
+  "description": "Accessibility tool",
 
   "background": {
-    "scripts": ["background.js"],
+    "scripts": ["jquery.js","background.js"],
     "persistent": false
   },
 
-  "content_security_policy": "script-src 'self' https://*.google.com 'unsafe-eval'; object-src 'self'",
+  "browser_action": {
+    "default_icon": "logo.png",
+    "default_popup": "popup.html"
+  },
+
+  "icons": { 
+			"16": "logo.png",
+           	"48": "logo.png",
+          	"128": "logo.png"
+  },
+
   "permissions": [
+    "storage",
+    "activeTab",
     "tabs",
-    "http://127.0.0.1:8000/",
-    "background",
-    "identity",
-    "notifications"
+    "http://*/*",
+    "https://*/*"
   ],
 
   "externally_connectable": {
     "matches": ["*://localhost/*"]
-  }
+  },
+  
+  "content_scripts":
+  [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js":  ["jquery.js", "actions.js"],
+	  "css": ["style.css"]
+    }
+  ] 
 }

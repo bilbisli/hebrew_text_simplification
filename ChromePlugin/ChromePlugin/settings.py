@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-5_j2mvct6*fg7mwwr+zp(n)mg4x1q5w^vqul9ah$*_riq3kjnb
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+CSRF_TRUSTED_ORIGINS = ['chrome-extension://ihekhhmlbgcpnlmigpgmhmpifnckmdad', 'https://*.127.0.0.1']
+ALLOWED_HOSTS = ['127.0.0.1', 'chrome-extension://ihekhhmlbgcpnlmigpgmhmpifnckmdad',]
 
 
 # Application definition
@@ -68,7 +69,12 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'ChromePlugin.wsgi.application'
-
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+}
+CSRF_COOKIE_SECURE = True
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases

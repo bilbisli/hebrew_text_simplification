@@ -1,0 +1,152 @@
+#tooltip {
+  position: absolute !important;
+  margin: 0 !important;
+  line-height: 1 !important;
+  border: 1px solid #ddd !important;
+  padding: 6px !important;
+  padding-top: 15px !important;
+  font-size: 10px !important;
+  background-color: #e6f5ff !important;
+  color: #002e4d !important;
+  width: 400px !important;
+  -webkit-border-radius: 5px !important;
+  -moz-border-radius: 5px !important;
+  border-radius: 5px !important;
+  box-shadow: 3px 3px 5px 0px #222 !important;
+  -webkit-box-shadow: 3px 3px 5px 0px #222 !important;
+  -moz-box-shadow: 3px 3px 5px 0px #222 !important;
+  text-align: right !important;
+  max-height: 400px !important;
+  overflow: scroll !important;
+}
+
+#tooltip::-webkit-scrollbar {
+  display: none !important;
+}
+
+#tooltip_title {
+  margin: 7px !important;
+  line-height: 1px !important;
+  font-weight: bold !important;
+  padding-bottom: 5px !important;
+  font-size: 16px !important;
+}
+#tooltip_list {
+  padding: 0 !important;
+  list-style-type: square !important;
+  line-height: 1 !important;
+  margin: 0px 0px 0px 10px !important;
+  list-style-position: inside !important;
+}
+#tooltip_list li {
+  line-height: 12px !important;
+  margin-bottom: 4px !important;
+}
+a.tooltip_link:link,
+a.tooltip_link:visited,
+a.tooltip_link:hover,
+a.tooltip_link:active {
+  color: #002e4d !important;
+  text-decoration: underline !important;
+}
+
+
+.tooltipp {
+  z-index: 9999 !important;
+  position: absolute !important;
+  margin: 0 !important;
+  line-height: 1 !important;
+  font-size: 10px !important;
+  text-align: right !important;
+  background: transparent !important;
+}
+
+/* Tooltip */
+
+.tooltipp-content {
+  overflow: scroll !important;
+  z-index: 9999 !important;
+  position: absolute !important;
+  margin: 0 !important;
+  line-height: 1 !important;
+  padding: 6px !important;
+  padding-top: 15px !important;
+  font-size: 10px !important;
+  width: 400px !important;
+  -webkit-border-radius: 5px !important;
+  -moz-border-radius: 5px !important;
+  border-radius: 5px !important;
+  text-align: right !important;
+  max-height: 400px !important;
+  bottom: 100% !important;
+  box-shadow: -5px -5px 15px rgba(48,54,61,0.2) !important;
+  background: #2a3035 !important;
+  cursor: default !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+.tooltipp-content::-webkit-scrollbar {
+  display: none !important;
+}
+
+.sr_main {
+  background: rgba(255,255,255,0.02) !important;
+  padding: 10px !important;
+  border-radius: 5px !important;
+  margin-bottom: 10px !important;
+}
+
+.sr_main:last-child {
+  margin-bottom: 0px !important;
+}
+
+.sr_e:not(:last-child) {
+  margin-bottom: 15px!important;
+}
+
+.sr_e {
+  background: rgba(255,255,255, 0.05) !important;
+  padding: 8px !important;
+  border-radius: 5px !important;
+}
+
+.sr_e_t {
+  color: burlywood !important;
+  font-size: larger !important;
+}
+
+.sr_wiki_link , .sr_show_more ,.in_link , .sr_e_trans , .sr_e_url{
+  color: burlywood !important;
+}
+
+.sr_title {
+  text-align: center  !important;
+  margin-bottom: 10px  !important;
+}
+
+.tooltipp-content img {
+  position: relative !important;
+  height: 150px !important;
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 50% !important;
+}
+
+.tooltipp-text {
+  line-height: 1.5 !important;
+  width: 100% !important;
+  width: -moz-available !important;
+  width: -webkit-fill-available !important;
+  width: fill-available !important;
+  display: block !important;
+  padding: 1em !important;
+  padding-left: 0.5em !important;
+  color: #fff !important;
+  float: right !important;
+}
+
+.tooltipp-text a {
+  font-weight: bold !important;
+}
