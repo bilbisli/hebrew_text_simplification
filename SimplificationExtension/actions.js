@@ -51,7 +51,9 @@ var getSelected = function(){
 }
 
 class PopupTooltip{
-    constructor(template_html=null){
+    constructor(range, template_html=null){
+		this.range = range;
+		this.contentHeight = 100;
         if (template_html == null) {
             this.loadTemplate(template_html);
         }
@@ -67,6 +69,7 @@ class PopupTooltip{
 		let strong_div = document.createElement("strong");
 		strong_div.setAttribute("id", "tooltipp-title-b");
 		strong_div.setAttribute("style", "12px");
+		this.contentHeight += Math.ceil(title_text.length / 86.0) * 12;
 		strong_div.textContent = title_text;
 		title_html.appendChild(strong_div)
         return title_html.outerHTML;
@@ -77,6 +80,7 @@ class PopupTooltip{
         text_html.setAttribute("class", "sr_" + text_class);
 		text_html.setAttribute("id", "tooltipp-text-content");
 		text_html.setAttribute("style", "12px");
+		this.contentHeight += Math.ceil(content_text.length / 86.0) * 12;
         text_html.textContent = content_text;
         return text_html.outerHTML;
     }
@@ -108,7 +112,26 @@ class PopupTooltip{
 		this.popupHtml = '';
 	}
 
-    getHtml(xPos, yPos){
+	getPosition(){
+		let x = this.range.left + this.range.width/2 + 200;
+		let y = this.range.currentY - this.range.height;
+		if(x > window.innerWidth)
+		{
+			x = window.innerWidth;
+		}
+		if(y - this.range.height < 400)
+		{
+			y = this.range.bottom + this.contentHeight + 90;
+		}
+		return {'x': x, 'y': y}
+	}
+
+    getHtml(xPos=null, yPos=null){
+		if (xPos == null || yPos == null){
+			let pos = this.getPosition();
+			xPos = pos.x;
+			yPos = pos.y;
+		}
         let output = '<div class="tooltipp" style="top: ' + yPos + 'px !important; left: ' + (xPos) + 'px !important;">';
         output +=   '<span class="tooltipp-content">';
         output +=       '<span class="tooltipp-text">';
@@ -157,40 +180,15 @@ $(document).ready(function(){
 		console.log('TextElement: ' + TextElement);
 		if(TextElement)
 		{
-			let range = selected[1];
-			console.log(range);
+			let selectedRange = selected[1];
+			selectedRange.currentY = e.pageY;
+			console.log(selectedRange);
             let st = selected[0];
 
 			if (st != null && st.length != 0)
 			{
-				e.pageX = range.left + range.width/2 + 200;
-				if(e.pageX > window.innerWidth)
-				{
-					e.pageX = window.innerWidth;
-				}
-				if(e.pageY - range.height < 400)
-				{
-					e.pageY += (range.height + 300);
-				}
-				else
-				{
-					e.pageY -= range.height;
-				}
-
-				// let data = '{"text": "'+ st + '"}';
-
-				// let init = {
-				// 	method: 'GET',
-				// 	body: data,
-				// 	headers: {
-				// 		"X-CSRFToken": csrftoken,
-				// 		'Content-Type': 'application/json',
-				// 	},
-				// 	allow_redirects: true
-				// }
-				// var input = `${ip}:${port}/${microSeviceSubPath}`;
-				// console.log('input: ' + input);
-				let toolTip = new PopupTooltip();
+	
+				let toolTip = new PopupTooltip(selectedRange);
 				chrome.runtime.sendMessage({text: st}, async function (response) {
 					console.log('msg???');
 					console.log('response: ' + response)
@@ -198,8 +196,9 @@ $(document).ready(function(){
 					console.log('ress???');
 					console.log('result: ' + simpleText);
 					toolTip.addTextSection('טקסט מפושט:', simpleText);
-					console.log(toolTip.getHtml(e.pageX, e.pageY));
-					$("body").append(toolTip.getHtml(e.pageX, e.pageY));
+					console.log(toolTip.getHtml());
+					ttHtml = toolTip.getHtml();
+					$("body").append(ttHtml);
 					toolTip.reset();
 				});
 			}

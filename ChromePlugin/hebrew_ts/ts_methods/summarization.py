@@ -290,12 +290,14 @@ def generate_summary(text,
                             for i, sentence in enumerate(sentences)]
         sorted_sentences = sorted(scored_sentences,
                                   key=lambda x: x[1], reverse=True)
-        top_n_df = pd.DataFrame({'paragraph': [sentence for sentence, _ in sorted_sentences], 'pagerank score': [score for _, score in sorted_sentences]})
-        formatted_res_df = top_n_df.style.format(formatter=None).set_table_styles([{'selector': 'th.col_heading', 'props': 'text-align: left;'},
-                                                            {'selector': 'th.col_heading.level0', 'props': 'font-size: 1.3em;'},
-                                                            {'selector': 'td', 'props': 'text-align: right; vertical-align: top; width: 300px; direction: rtl;'},
-                                                            ], overwrite=False)
-        display(formatted_res_df)
+        if visualize:
+            print('before filtering:')
+            top_n_df = pd.DataFrame({'paragraph': [sentence for sentence, _ in sorted_sentences], 'pagerank score': [score for _, score in sorted_sentences]})
+            formatted_res_df = top_n_df.style.format(formatter=None).set_table_styles([{'selector': 'th.col_heading', 'props': 'text-align: left;'},
+                                                                {'selector': 'th.col_heading.level0', 'props': 'font-size: 1.3em;'},
+                                                                {'selector': 'td', 'props': 'text-align: right; vertical-align: top; width: 300px; direction: rtl;'},
+                                                                ], overwrite=False)
+            display(formatted_res_df)
 
         if strategy is None:
             strategy = EliminateAllButHighestScoreInCluster
@@ -314,20 +316,16 @@ def generate_summary(text,
                                                         visualize=visualize)
         #visualize_clusters(sentences, sentence_embeddings, clusters)
         sentence_dict = active_strategy.eliminate(clusters)
-        #visualize_clusters([sentences[i] for i in sentence_dict], [sentence_embeddings[i] for i in sentence_dict], [clusters[i] for i in sentence_dict])
-        # build a sorted list of sentences by score
-        scored_sentences = [(sentence, sentences_text_rank_dict[i]) \
-                            for i, sentence in enumerate(sentences)]
-        sorted_sentences = sorted(scored_sentences,
-                                  key=lambda x: x[1], reverse=True)
-        ranked_sentences_top_k = [sentence for sentence, _ in sorted_sentences]
+        sorted_sentences_top_k = sorted([scored_sentences[i] for i in sentence_dict.keys()], key=lambda x: x[1], reverse=True)
+        ranked_sentences_top_k = [sentence for sentence, _ in sorted_sentences_top_k]
         fixed_paragraphs.append(". ".join(ranked_sentences_top_k))
-
-        top_n_df = pd.DataFrame({'paragraph': ranked_sentences_top_k, 'pagerank score': [score for _, score in sorted_sentences]})
-        formatted_res_df = top_n_df.style.format(formatter = None).set_table_styles([{'selector': 'th.col_heading', 'props': 'text-align: left;'},
-                                                            {'selector': 'th.col_heading.level0', 'props': 'font-size: 1.3em;'},
-                                                            {'selector': 'td', 'props': 'text-align: right; vertical-align: top; width: 300px; direction: rtl;'},
-                                                            ], overwrite=False)
-        display(formatted_res_df)
+        if visualize:
+            print('after filtering:')
+            top_n_df = pd.DataFrame({'paragraph': ranked_sentences_top_k, 'pagerank score': [score for _, score in sorted_sentences_top_k]})
+            formatted_res_df = top_n_df.style.format(formatter = None).set_table_styles([{'selector': 'th.col_heading', 'props': 'text-align: left;'},
+                                                                {'selector': 'th.col_heading.level0', 'props': 'font-size: 1.3em;'},
+                                                                {'selector': 'td', 'props': 'text-align: right; vertical-align: top; width: 300px; direction: rtl;'},
+                                                                ], overwrite=False)
+            display(formatted_res_df)
     # output the summarized version
     return new_line_tok.join(fixed_paragraphs) #,len(sentences)
