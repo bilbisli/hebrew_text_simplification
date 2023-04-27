@@ -29,7 +29,7 @@
   line-height: 1px !important;
   font-weight: bold !important;
   padding-bottom: 5px !important;
-  font-size: 16px !important;
+  font-size: 30px !important;
 }
 #tooltip_list {
   padding: 0 !important;
@@ -49,7 +49,6 @@ a.tooltip_link:active {
   color: #002e4d !important;
   text-decoration: underline !important;
 }
-
 
 .tooltipp {
   z-index: 9999 !important;
@@ -79,7 +78,7 @@ a.tooltip_link:active {
   text-align: right !important;
   max-height: 400px !important;
   bottom: 100% !important;
-  box-shadow: -5px -5px 15px rgba(48,54,61,0.2) !important;
+  box-shadow: -5px -5px 15px rgba(48, 54, 61, 0.2) !important;
   background: #2a3035 !important;
   cursor: default !important;
   opacity: 1 !important;
@@ -91,7 +90,7 @@ a.tooltip_link:active {
 }
 
 .sr_main {
-  background: rgba(255,255,255,0.02) !important;
+  background: rgba(255, 255, 255, 0.02) !important;
   padding: 10px !important;
   border-radius: 5px !important;
   margin-bottom: 10px !important;
@@ -102,11 +101,11 @@ a.tooltip_link:active {
 }
 
 .sr_e:not(:last-child) {
-  margin-bottom: 15px!important;
+  margin-bottom: 15px !important;
 }
 
 .sr_e {
-  background: rgba(255,255,255, 0.05) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
   padding: 8px !important;
   border-radius: 5px !important;
 }
@@ -116,13 +115,17 @@ a.tooltip_link:active {
   font-size: larger !important;
 }
 
-.sr_wiki_link , .sr_show_more ,.in_link , .sr_e_trans , .sr_e_url{
+.sr_wiki_link,
+.sr_show_more,
+.in_link,
+.sr_e_trans,
+.sr_e_url {
   color: burlywood !important;
 }
 
 .sr_title {
-  text-align: center  !important;
-  margin-bottom: 10px  !important;
+  text-align: center !important;
+  margin-bottom: 10px !important;
 }
 
 .tooltipp-content img {
