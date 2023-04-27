@@ -150,17 +150,6 @@ let ip = "http://127.0.0.1";
 let microSeviceSubPath = "get_simplified/?text=";
 
 $(document).ready(function () {
-  //getWords();
-
-  /*	var input = "http://www.kizur.co.il/search_word.php?abbr=" + encodeURIComponent('מנכ"ל');
-	console.log(input);
-	chrome.runtime.sendMessage({input}, messageResponse => {
-		const [response, error] = messageResponse;
-		const parser = new DOMParser();
-		var html = parser.parseFromString(response.body, "text/html");
-		console.log(html.querySelector("td.sr_results:nth-child(2)").textContent);
-	});*/
-
   $("body").on("click", function (e) {
     console.log("click");
     var container = $(".tooltipp");

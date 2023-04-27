@@ -14,7 +14,7 @@ from hebrew_ts.hebrew_ts import text_simplification_pipeline
 import wikipedia
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the wiki index.")
+    return render(request, "HTML/popup.html")
 
 
 # https://pypi.org/project/wikipedia/#description

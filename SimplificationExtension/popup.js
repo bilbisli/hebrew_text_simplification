@@ -1,7 +1,7 @@
 $(function () {
   $("#SimpText").click(function () {
     var textToSimplify = $("#textInput").val();
-	console.log('popup activate!');
+    console.log("popup activate!");
     if (textToSimplify) {
       chrome.runtime.sendMessage({ text: textToSimplify }, function (response) {
         result = response.simplified_text_response;
