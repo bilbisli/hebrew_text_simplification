@@ -187,7 +187,12 @@ $(document).ready(function () {
             chrome.runtime.sendMessage({ text: st }, async function (response) {
               console.log("msg???");
               console.log("response: " + response);
-              simpleText = response.simplified_text_response.simple_text;
+              if (checkboxValue == false) {
+                simpleText = response.simplified_text_response.simple_text;
+              } else {
+                simpleText = response.simplified_text_response.summary;
+              }
+              console.log(checkboxValue);
               console.log("ress???");
               console.log("result: " + simpleText);
               toolTip.addTextSection("טקסט מפושט:", simpleText);

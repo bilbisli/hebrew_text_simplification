@@ -24,7 +24,8 @@ def get_simplified(request):
     print('text:', text)
     simple = text_simplification_pipeline(text)
     data = {
-        'simple_text': simple,
+        'simple_text': simple[0],
+        'summary': simple[1],
         'raw': 'Successful',
     }
 
