@@ -10,5 +10,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const checkboxValue = checkbox.checked;
     chrome.storage.sync.set({ checkboxValue: checkboxValue });
     console.log("Checkbox value set to:", checkboxValue);
+
+    // Reload the active tab to refresh actions.js
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      chrome.tabs.reload(tabs[0].id);
+    });
   });
 });
