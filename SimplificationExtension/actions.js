@@ -149,45 +149,57 @@ let port = 8000;
 let ip = "http://127.0.0.1";
 let microSeviceSubPath = "get_simplified/?text=";
 
+document.addEventListener("DOMContentLoaded", function () {
+  console.log("Checkbox value is:", checkboxValue);
+});
+
 $(document).ready(function () {
-  $("body").on("click", function (e) {
-    console.log("click");
-    var container = $(".tooltipp");
+  chrome.storage.sync.get("checkboxValue", function (data) {
+    const checkboxValue = data.checkboxValue;
+    console.log("Checkbox value is:", checkboxValue);
 
-    if (!container.is(e.target) && container.has(e.target).length === 0) {
-      $("#tooltip").remove();
-      $(".tooltipp").remove();
-    }
-  });
+    console.log("Checkbox value is:", checkboxValue);
+    $("body").on("click", function (e) {
+      var container = $(".tooltipp");
 
-  $("body").on("click", function (e) {
-    console.log("click2");
-    const selected = getSelected();
-    console.log("selected: " + selected);
-    let TextElement = selected[2];
-    console.log("TextElement: " + TextElement);
-    if (TextElement) {
-      let selectedRange = selected[1];
-      selectedRange.currentY = e.pageY;
-      console.log(selectedRange);
-      let st = selected[0];
-
-      if (st != null && st.length != 0) {
-        let toolTip = new PopupTooltip(selectedRange);
-        chrome.runtime.sendMessage({ text: st }, async function (response) {
-          console.log("msg???");
-          console.log("response: " + response);
-          simpleText = response.simplified_text_response.simple_text;
-          console.log("ress???");
-          console.log("result: " + simpleText);
-          toolTip.addTextSection("טקסט מפושט:", simpleText);
-          console.log(toolTip.getHtml());
-          ttHtml = toolTip.getHtml();
-          $("body").append(ttHtml);
-          toolTip.reset();
-        });
+      if (!container.is(e.target) && container.has(e.target).length === 0) {
+        $("#tooltip").remove();
+        $(".tooltipp").remove();
       }
-    }
+    });
+
+    $("body").on("click", function (e) {
+      console.log("click2");
+      const selected = getSelected();
+      console.log("selected: " + selected);
+      let TextElement = selected[2];
+      console.log("TextElement: " + TextElement);
+      if (TextElement) {
+        let selectedRange = selected[1];
+        selectedRange.currentY = e.pageY;
+        console.log(selectedRange);
+        let st = selected[0];
+
+        if (st != null && st.length != 0) {
+          if (e.target.id !== "checkbox") {
+            // check if the event target is not the checkbox
+            let toolTip = new PopupTooltip(selectedRange);
+            chrome.runtime.sendMessage({ text: st }, async function (response) {
+              console.log("msg???");
+              console.log("response: " + response);
+              simpleText = response.simplified_text_response.simple_text;
+              console.log("ress???");
+              console.log("result: " + simpleText);
+              toolTip.addTextSection("טקסט מפושט:", simpleText);
+              console.log(toolTip.getHtml());
+              ttHtml = toolTip.getHtml();
+              $("body").append(ttHtml);
+              toolTip.reset();
+            }); // pass checkboxValue as a parameter
+          }
+        }
+      }
+    });
   });
 });
 

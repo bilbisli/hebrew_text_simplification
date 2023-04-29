@@ -1,41 +1,14 @@
-$(function () {
-  $("#SimpText").click(function () {
-    var textToSimplify = $("#textInput").val();
-    console.log("popup activate!");
-    if (textToSimplify) {
-      chrome.runtime.sendMessage({ text: textToSimplify }, function (response) {
-        result = response.simplified_text_response;
+// Retrieve the value of checkboxValue from storage and set the default value to false if not found
+chrome.storage.sync.get({ checkboxValue: false }, function (data) {
+  const checkbox = document.getElementById("checkbox");
+  checkbox.checked = data.checkboxValue;
+});
 
-        var html =
-          "<div id='simplified-text' dir='rtl'>" +
-          "<h3>Simplified Text</h3>" +
-          "<p class='result'>" +
-          result.simple_text +
-          "</p>" +
-          "</div>";
-
-        var popupWindow = window.open(
-          "",
-          "Simplified Text",
-          "width=400,height=300"
-        );
-        popupWindow.document.write(html);
-
-        var style = popupWindow.document.createElement("style");
-        style.innerHTML =
-          "#simplified-text { padding: 20px; background-color: #ffffff; border: 1px solid #cccccc; border-radius: 5px; box-shadow: 0 0 5px #cccccc; text-align: center; font-size: 1.2em; line-height: 1.5em; } h3 { margin: 0; font-size: 1.5em; font-weight: bold; } .result { margin-top: 10px; padding: 10px 0; } button { display: block; margin: 20px auto 0; background-color: #5cb85c; border: none; border-radius: 5px; color: #ffffff; font-size: 1.2em; font-weight: bold; padding: 10px 20px; cursor: pointer; } button:hover { background-color: #4cae4c; }";
-        popupWindow.document.head.appendChild(style);
-
-        var closeButton = popupWindow.document.createElement("button");
-        closeButton.innerHTML = "Close";
-        closeButton.addEventListener("click", function () {
-          popupWindow.close();
-        });
-
-        popupWindow.document.body.appendChild(closeButton);
-      });
-    }
-
-    $("#textInput").val("");
+document.addEventListener("DOMContentLoaded", function () {
+  const checkbox = document.getElementById("checkbox");
+  checkbox.addEventListener("click", function () {
+    const checkboxValue = checkbox.checked;
+    chrome.storage.sync.set({ checkboxValue: checkboxValue });
+    console.log("Checkbox value set to:", checkboxValue);
   });
 });

@@ -5,6 +5,9 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   var url =
     serverhost + "/get_simplified/?text=" + encodeURIComponent(request.text);
 
+  if (request.checkbox) {
+    console.log(request.checkbox);
+  }
   console.log(url);
 
   fetch(url)
