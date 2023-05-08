@@ -8,7 +8,6 @@
   font-size: 10px !important;
   background-color: #e6f5ff !important;
   color: #002e4d !important;
-  width: 400px !important;
   -webkit-border-radius: 5px !important;
   -moz-border-radius: 5px !important;
   border-radius: 5px !important;
@@ -16,7 +15,6 @@
   -webkit-box-shadow: 3px 3px 5px 0px #222 !important;
   -moz-box-shadow: 3px 3px 5px 0px #222 !important;
   text-align: right !important;
-  max-height: 400px !important;
   overflow: scroll !important;
 }
 
@@ -70,19 +68,19 @@ a.tooltip_link:active {
   line-height: 1 !important;
   padding: 6px !important;
   padding-top: 15px !important;
-  font-size: 10px !important;
-  width: 400px !important;
+  font-size: 25px !important;
   -webkit-border-radius: 5px !important;
   -moz-border-radius: 5px !important;
   border-radius: 5px !important;
   text-align: right !important;
-  max-height: 400px !important;
-  bottom: 100% !important;
+  /*max-height: 400px !important;*/
+  /* bottom: 100% !important;*/
   box-shadow: -5px -5px 15px rgba(48, 54, 61, 0.2) !important;
   background: #2a3035 !important;
   cursor: default !important;
   opacity: 1 !important;
   pointer-events: auto !important;
+  min-width: 200px;
 }
 
 .tooltipp-content::-webkit-scrollbar {
