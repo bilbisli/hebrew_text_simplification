@@ -68,17 +68,18 @@ class Tooltip {
     this.tooltipElement.style.left = `${rect.left}px`;
     this.tooltipElement.style.width = `${rect.width}px`; // Set width to match selected text
     this.tooltipElement.style.display = "block";
-
-    if (position === "below") {
-      console.log("below");
-      let tooltipHeight = textElement.offsetHeight + 120;
-      this.tooltipElement.style.top = `${
-        rect.top + scrollY - tooltipHeight - 5
-      }px`;
-    } else {
+    
+    let tooltipHeight = textElement.offsetHeight + 55 + this.fontSize;
+    let aboveSelection = rect.top + scrollY - tooltipHeight - 5;
+    let belowSelection = rect.bottom + scrollY + 5;
+    if (position === "bottom" && aboveSelection > 0) {
       console.log("above");
+      this.tooltipElement.style.top = `${aboveSelection}px`;
+    } else {
+      console.log("below");
+      console.log(aboveSelection);
       console.log(this.tooltipElement.offsetHeight);
-      this.tooltipElement.style.top = `${rect.bottom + scrollY + 5}px`;
+      this.tooltipElement.style.top = `${belowSelection}px`;
     }
   }
   hide() {
@@ -124,7 +125,7 @@ document.addEventListener("mouseup", function (event) {
                 .getRangeAt(0)
                 .getBoundingClientRect();
               const position =
-                rect.bottom > window.innerHeight / 2 ? "below" : "above";
+                rect.bottom > window.innerHeight / 2 ? "bottom" : "top";
 
               tooltip.show(simpleText, position);
             }

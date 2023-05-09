@@ -64,7 +64,7 @@ def find_clusters_by_breaking_point(data_embeddings, visualize=False):
     
     for k in cluster_range:
         # Building and fitting the model
-        kmeanModel = KMeans(init='k-means++', n_clusters=k, random_state=0).fit(data_embeddings)
+        kmeanModel = KMeans(init='k-means++', n_clusters=k, random_state=0, n_init='auto').fit(data_embeddings)
         kmeanModel.fit(data_embeddings)
         inertias.append(kmeanModel.inertia_)
 
@@ -114,7 +114,7 @@ def cluster_sentences_from_embeddings(sentences, sentence_embeddings, num_cluste
         if num_clusters is None:
             num_clusters = find_clusters_by_breaking_point(sentence_embeddings, visualize=visualize)                                                   
 
-        kmeans = KMeans(init='k-means++', n_clusters=num_clusters, random_state=0)
+        kmeans = KMeans(init='k-means++', n_clusters=num_clusters, random_state=0, n_init='auto')
         clusters = kmeans.fit_predict(sentence_embeddings)
 
     # Group sentences into clusters
