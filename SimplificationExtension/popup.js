@@ -1,6 +1,9 @@
-// Retrieve the value of checkboxValue and checkboxBottomValue from storage and set the default value to false if not found
 chrome.storage.sync.get(
-  { simplificationCheckboxValue: false, summarizationCheckboxValue: false },
+  {
+    simplificationCheckboxValue: false,
+    summarizationCheckboxValue: false,
+    fontSizeValue: "medium",
+  },
   function (data) {
     const simplificationCheckbox = document.getElementById(
       "simplificationCheckbox"
@@ -8,8 +11,23 @@ chrome.storage.sync.get(
     const summarizationCheckbox = document.getElementById(
       "summarizationCheckbox"
     );
+    const fontSizeSelection = document.getElementById("fontSizeSelect");
+
+    var fontSizeSelect = document.getElementById("fontSizeSelect");
+    var customFontSizeInput = document.getElementById("customFontSizeInput");
+
+    // show/hide custom font size input field when "custom" option is selected
+    fontSizeSelect.addEventListener("change", function () {
+      if (fontSizeSelect.value === "custom") {
+        customFontSizeInput.style.display = "inline";
+      } else {
+        customFontSizeInput.style.display = "none";
+      }
+    });
+
     simplificationCheckbox.checked = data.simplificationCheckboxValue;
     summarizationCheckbox.checked = data.summarizationCheckboxValue;
+    fontSizeSelection.value = data.fontSizeValue;
   }
 );
 
@@ -45,6 +63,34 @@ document.addEventListener("DOMContentLoaded", function () {
       "summarizationCheckbox bottom value set to:",
       summarizationCheckboxValue
     );
+
+    // Reload the active tab to refresh actions.js
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      chrome.tabs.reload(tabs[0].id);
+    });
+  });
+
+  const fontSizeSelection = document.getElementById("fontSizeSelect");
+
+  var customFontSizeInput = document.getElementById("customFontSizeInput");
+
+  customFontSizeInput.addEventListener("change", function () {
+    fontSizeValue = customFontSizeInput.value;
+
+    chrome.storage.sync.set({ fontSizeValue: fontSizeValue });
+    console.log("fontSize value set to:", fontSizeValue);
+
+    // Reload the active tab to refresh actions.js
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      chrome.tabs.reload(tabs[0].id);
+    });
+  });
+
+  fontSizeSelection.addEventListener("change", function () {
+    let fontSizeValue = fontSizeSelection.value;
+
+    chrome.storage.sync.set({ fontSizeValue: fontSizeValue });
+    console.log("fontSize value set to:", fontSizeValue);
 
     // Reload the active tab to refresh actions.js
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
