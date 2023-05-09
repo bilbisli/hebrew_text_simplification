@@ -20,15 +20,14 @@ def index(request):
 # https://pypi.org/project/wikipedia/#description
 def get_simplified(request):
     text = request.GET.get('text', None)
+    simplification_checkbox = True if request.GET.get('simplificationCheckbox', False) in ['True','true', True] else False
+    summarization_checkbox = True if request.GET.get('summarizationCheckbox', False) in ['True','true', True] else False
 
-    print('text:', text)
-    simple = text_simplification_pipeline(text)
+    simple = text_simplification_pipeline(text, word_sub=simplification_checkbox, sentence_filter=summarization_checkbox)
+    
     data = {
-        'simple_text': simple[0],
-        'summary': simple[1],
+        'simple_text': simple,
         'raw': 'Successful',
     }
-
-    print('json-data to be sent: ', data)
 
     return JsonResponse(data)

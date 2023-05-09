@@ -68,17 +68,14 @@ class Tooltip {
     this.tooltipElement.style.left = `${rect.left}px`;
     this.tooltipElement.style.width = `${rect.width}px`; // Set width to match selected text
     this.tooltipElement.style.display = "block";
-    
+
     let tooltipHeight = textElement.offsetHeight + 55 + this.fontSize;
     let aboveSelection = rect.top + scrollY - tooltipHeight - 5;
     let belowSelection = rect.bottom + scrollY + 5;
+
     if (position === "bottom" && aboveSelection > 0) {
-      console.log("above");
       this.tooltipElement.style.top = `${aboveSelection}px`;
     } else {
-      console.log("below");
-      console.log(aboveSelection);
-      console.log(this.tooltipElement.offsetHeight);
       this.tooltipElement.style.top = `${belowSelection}px`;
     }
   }
@@ -99,41 +96,43 @@ let simpleText = "";
 
 document.addEventListener("mouseup", function (event) {
   const selectedText = window.getSelection().toString();
-  chrome.storage.sync.get("checkboxValue", function (data) {
-    const checkboxValue = data.checkboxValue;
-    if (selectedText.length > 0) {
-      let TextElement = selectedText;
-      console.log("TextElement: " + TextElement);
-      if (TextElement) {
-        if (event.target.id !== "checkbox") {
-          chrome.runtime.sendMessage(
-            { text: TextElement },
-            async function (response) {
-              console.log("msg???");
-              console.log("response: " + response);
-              if (checkboxValue == false) {
+  chrome.storage.sync.get(
+    ["simplificationCheckboxValue", "summarizationCheckboxValue"],
+    function (data) {
+      const simplificationCheckboxValue = data.simplificationCheckboxValue;
+      const summarizationCheckboxValue = data.summarizationCheckboxValue;
+      if (selectedText.length > 0) {
+        let TextElement = selectedText;
+
+        if (TextElement) {
+          if (
+            event.target.id !== "simplificationCheckbox" &&
+            event.target.id !== "summarizationCheckbox"
+          ) {
+            chrome.runtime.sendMessage(
+              {
+                text: TextElement,
+                simplificationCheckbox: simplificationCheckboxValue,
+                summarizationCheckbox: summarizationCheckboxValue,
+              },
+              async function (response) {
                 simpleText = response.simplified_text_response.simple_text;
-              } else {
-                simpleText = response.simplified_text_response.summary;
+
+                const rect = window
+                  .getSelection()
+                  .getRangeAt(0)
+                  .getBoundingClientRect();
+                const position =
+                  rect.bottom > window.innerHeight / 2 ? "bottom" : "top";
+
+                tooltip.show(simpleText, position);
               }
-              console.log(checkboxValue);
-              console.log("ress???");
-              console.log("result: " + simpleText);
-
-              const rect = window
-                .getSelection()
-                .getRangeAt(0)
-                .getBoundingClientRect();
-              const position =
-                rect.bottom > window.innerHeight / 2 ? "bottom" : "top";
-
-              tooltip.show(simpleText, position);
-            }
-          ); // pass checkboxValue as a parameter
+            );
+          }
         }
       }
     }
-  });
+  );
 });
 
 document.addEventListener("mousedown", function (event) {

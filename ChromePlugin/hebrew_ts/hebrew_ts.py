@@ -32,18 +32,12 @@ def text_simplification_pipeline(text, score_threshold=0.32, neighbours_threshol
         if sentence_filter:
             summ = generate_summary(simp, top_n_func=None, new_line_tok=new_line_tok, visualize=False)
         else:
-            summ = paragraph
-        simp_list.append(simp)
+            summ = simp
         summ_list.append(summ)
 
-    simp_text = new_line_tok.join(simp_list)
     summ_text = new_line_tok.join(summ_list)
     
-    return simp_text, summ_text
-
-text1 ="""ג המולד הוא חג המקובל כמעט בכל זרמי הנצרות המציין את הולדת ישו. על פי הברית החדשה נולד ישו למרים הבתולה בבית לחם במקום בו מצויה כיום כנסיית המולד. הנוצרים מאמינים כי לידתו של ישו מהווה הגשמה של נבואות התנ"ך על בואו של משיח מבית דוד, אשר יגאל את העולם מחטאיו ויגשר על הפער שבין האל ובין בני האדם. אין הסכמה בקרב הכנסיות ובקרב היסטוריונים על הכרונולוגיה המדויקת של לידת ישו, אך מאז המאה הרביעית כמעט כל הכנסיות חוגגות אותו ב-25 בדצמבר (כך גם הכנסיות המזרחיות המשתמשות בלוח היוליאני לצרכים דתיים, אם כי בשל השימוש האזרחי במקבילו הגרגוריאני הן מציינות אותו לכאורה ב-7 בינואר)."""
-# with open('text_file.txt', 'w+', encoding='utf-8') as f:
-#     f.write(text1)
+    return summ_text
 
 def main(parser=None):
     parser = parser or argparse.ArgumentParser(prog='hebrew_ts', description='Simplifies complex Hebrew text',)
