@@ -10,6 +10,7 @@ class Tooltip {
     this.textId = "tooltipp-text-content";
     this.contentId = "tooltipp-content";
     this.titleId = "tooltipp-title-b";
+    this.textColor = "#ffffff";
   }
 
   createTitle(title_text) {
@@ -17,7 +18,10 @@ class Tooltip {
     title_html.setAttribute("class", "sr_title");
     let strong_div = document.createElement("strong");
     strong_div.setAttribute("id", this.titleId);
-    strong_div.setAttribute("style", `font-size: ${this.fontSize}`);
+    strong_div.setAttribute(
+      "style",
+      `font-size: ${this.fontSize} ; color: ${this.textColor};`
+    );
     strong_div.textContent = title_text;
     title_html.appendChild(strong_div);
     return title_html;
@@ -27,7 +31,10 @@ class Tooltip {
     let text_html = document.createElement("div");
     text_html.setAttribute("class", "sr_" + text_class);
     text_html.setAttribute("id", this.textId);
-    text_html.setAttribute("style", `font-size: ${this.fontSize}`);
+    text_html.setAttribute(
+      "style",
+      `font-size: ${this.fontSize}; color: ${this.textColor};`
+    );
 
     text_html.textContent = content_text;
     return text_html;
@@ -57,8 +64,9 @@ class Tooltip {
     document.body.appendChild(this.tooltipElement);
   }
 
-  show(selectedText, position, fontSizeValue) {
+  show(selectedText, position, fontSizeValue, textColorValue) {
     this.selectedText = selectedText;
+    this.textColor = textColorValue;
     let textElement = document.getElementById(this.textId);
     let contentElement = document.getElementById(this.contentId);
     let titleElement = document.getElementById(this.titleId);
@@ -79,6 +87,10 @@ class Tooltip {
 
     textElement.style.fontSize = fontSizeValue;
     titleElement.style.fontSize = fontSizeValue;
+
+    textElement.style.color = textColorValue;
+    titleElement.style.color = textColorValue;
+
     contentElement.style.fontSize = fontSizeValue;
 
     let tooltipHeight = contentElement.offsetHeight;
@@ -114,13 +126,15 @@ document.addEventListener("mouseup", function (event) {
       "simplificationCheckboxValue",
       "summarizationCheckboxValue",
       "fontSizeValue",
+      "textColorValue",
     ],
     function (data) {
       const simplificationCheckboxValue = data.simplificationCheckboxValue;
       const summarizationCheckboxValue = data.summarizationCheckboxValue;
       const fontSizeValue = data.fontSizeValue;
+      const textColorValue = data.textColorValue;
 
-      console.log("fontSizeValue: " + fontSizeValue);
+      console.log("textColorValue: " + textColorValue);
       if (selectedText.length > 0) {
         let TextElement = selectedText;
 
@@ -145,7 +159,12 @@ document.addEventListener("mouseup", function (event) {
                 const position =
                   rect.bottom > window.innerHeight / 2 ? "bottom" : "top";
 
-                tooltip.show(simpleText, position, fontSizeValue);
+                tooltip.show(
+                  simpleText,
+                  position,
+                  fontSizeValue,
+                  textColorValue
+                );
               }
             );
           }

@@ -3,6 +3,7 @@ chrome.storage.sync.get(
     simplificationCheckboxValue: false,
     summarizationCheckboxValue: false,
     fontSizeValue: "medium",
+    textColorValue: "#ffffff",
   },
   function (data) {
     const simplificationCheckbox = document.getElementById(
@@ -24,10 +25,13 @@ chrome.storage.sync.get(
         customFontSizeInput.style.display = "none";
       }
     });
+    var textColor = document.getElementById("textColor");
 
     simplificationCheckbox.checked = data.simplificationCheckboxValue;
     summarizationCheckbox.checked = data.summarizationCheckboxValue;
     fontSizeSelection.value = data.fontSizeValue;
+
+    textColor.value = data.textColorValue;
   }
 );
 
@@ -91,6 +95,19 @@ document.addEventListener("DOMContentLoaded", function () {
 
     chrome.storage.sync.set({ fontSizeValue: fontSizeValue });
     console.log("fontSize value set to:", fontSizeValue);
+
+    // Reload the active tab to refresh actions.js
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      chrome.tabs.reload(tabs[0].id);
+    });
+  });
+
+  var textColor = document.getElementById("textColor");
+
+  textColor.addEventListener("input", function () {
+    let textColorValue = textColor.value;
+    chrome.storage.sync.set({ textColorValue: textColorValue });
+    console.log("textColorValue value set to:", textColorValue);
 
     // Reload the active tab to refresh actions.js
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
