@@ -66,8 +66,8 @@ a.tooltip_link:active {
   position: absolute !important;
   margin: 0 !important;
   line-height: 1 !important;
-  padding: 6px !important;
-  padding-top: 15px !important;
+  padding: 5px !important;
+  padding-top: 5px !important;
   font-size: 25px !important;
   -webkit-border-radius: 5px !important;
   -moz-border-radius: 5px !important;
@@ -142,7 +142,7 @@ a.tooltip_link:active {
   width: -webkit-fill-available !important;
   width: fill-available !important;
   display: block !important;
-  padding: 1em !important;
+  padding: 0.5em !important;
   padding-left: 0.5em !important;
   color: #fff !important;
   float: right !important;
