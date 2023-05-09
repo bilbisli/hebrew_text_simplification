@@ -39,8 +39,8 @@ body {
 .option {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  justify-content: start;
+  height: 70px;
 }
 
 .option.top {
@@ -123,4 +123,8 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+#textColor {
+  margin-top: 18%;
 }
