@@ -17,12 +17,11 @@ def hebrew_ts_cli(*args, **kwargs):
 
 def text_simplification_pipeline(text, score_threshold=0.32, neighbours_threshold=0.7, word_sub=True, sentence_filter=True, new_line_tok='\n', new_line_model_token='<NL>'):
     if os.path.isfile(text):
-        print('in')
         with open(text, 'r', encoding='utf-8') as f:
             text = f.read()
-            print(text)
+
     simp_list = []
-    summ_list = []
+
     paragraphs = [p for p in text.split(new_line_tok) if p != '' and not p.isspace()]
     for paragraph in paragraphs:
         if word_sub:
@@ -33,11 +32,13 @@ def text_simplification_pipeline(text, score_threshold=0.32, neighbours_threshol
             summ = generate_summary(simp, top_n_func=None, new_line_tok=new_line_tok, visualize=False)
         else:
             summ = simp
-        summ_list.append(summ)
+        simp_list.append(summ)
 
-    summ_text = new_line_tok.join(summ_list)
+    simp_text = new_line_tok.join(simp_list)
     
-    return summ_text
+    return simp_text
+
+text1 ="""ג המולד הוא חג המקובל כמעט בכל זרמי הנצרות המציין את הולדת ישו. על פי הברית החדשה נולד ישו למרים הבתולה בבית לחם במקום בו מצויה כיום כנסיית המולד. הנוצרים מאמינים כי לידתו של ישו מהווה הגשמה של נבואות התנ"ך על בואו של משיח מבית דוד, אשר יגאל את העולם מחטאיו ויגשר על הפער שבין האל ובין בני האדם. אין הסכמה בקרב הכנסיות ובקרב היסטוריונים על הכרונולוגיה המדויקת של לידת ישו, אך מאז המאה הרביעית כמעט כל הכנסיות חוגגות אותו ב-25 בדצמבר (כך גם הכנסיות המזרחיות המשתמשות בלוח היוליאני לצרכים דתיים, אם כי בשל השימוש האזרחי במקבילו הגרגוריאני הן מציינות אותו לכאורה ב-7 בינואר)."""
 
 def main(parser=None):
     parser = parser or argparse.ArgumentParser(prog='hebrew_ts', description='Simplifies complex Hebrew text',)

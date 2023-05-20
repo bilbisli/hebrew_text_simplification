@@ -318,7 +318,7 @@ def generate_summary(text,
         sentence_dict = active_strategy.eliminate(clusters)
         sorted_sentences_top_k = sorted([scored_sentences[i] for i in sentence_dict.keys()], key=lambda x: x[1], reverse=True)
         ranked_sentences_top_k = [sentence for sentence, _ in sorted_sentences_top_k]
-        fixed_paragraphs.append(". ".join(ranked_sentences_top_k))
+        fixed_paragraphs.append(". ".join(ranked_sentences_top_k) + '.')
         if visualize:
             print('after filtering:')
             top_n_df = pd.DataFrame({'paragraph': ranked_sentences_top_k, 'pagerank score': [score for _, score in sorted_sentences_top_k]})
@@ -328,4 +328,5 @@ def generate_summary(text,
                                                                 ], overwrite=False)
             display(formatted_res_df)
     # output the summarized version
-    return new_line_tok.join(fixed_paragraphs) #,len(sentences)
+    res = new_line_tok.join(fixed_paragraphs)
+    return  res

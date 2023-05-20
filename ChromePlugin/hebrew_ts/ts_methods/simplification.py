@@ -6,7 +6,7 @@ import wordfreq
 from tqdm.auto import tqdm
 
 
-@lru_cache(maxsize=10)
+@lru_cache(maxsize=50)
 def get_common_words(top_n=27000, lang='he'):
     return wordfreq.top_n_list(lang, top_n)
 
@@ -14,7 +14,7 @@ def get_common_words(top_n=27000, lang='he'):
 def get_word_freq(word, lang='he'):
     return wordfreq.word_frequency(word, lang)
 
-@lru_cache(maxsize=10)
+@lru_cache(maxsize=50)
 def get_top_n_frequency(top_n=27000, lang='he'):
     top_common_words = get_common_words(top_n, lang)
     last_common_word = top_common_words[-1]
@@ -90,6 +90,20 @@ def find_mask_index(text_list, mask_exculsion, check_frequency=True, new_line_mo
 def unspace_decimal_numbers(text):
     return re.sub(r"(\d+) *(\.) *(\d+)", r"\1\2\3", text)
 
+def unspace_quotes(text):
+    # Remove spaces before and after single quotes when they are used as quotes ('word')
+    text = re.sub(r"'\s*(.*?)\s*'", r"'\1'", text)
+    
+    # Remove spaces before and after double quotes when they are used as quotes ("word")
+    text = re.sub(r'"\s*(.*?)\s*"', r'"\1"', text)
+
+    # remove spaces surrounding double or single quotes
+    text = text.replace(" ' ", "'").replace(' " ', '"')
+    
+    return text
+
+
+
 def simplify_words(text, index_list=None, tokenizer=None, ner_model=None, mask_model=None, score_threshold=0.32, check_frequency=True, neighbours_threshold=0.7, new_line_model_token='<NL>'):
     if index_list is None:
         if not all((tokenizer, ner_model, mask_model)):
@@ -108,5 +122,5 @@ def simplify_words(text, index_list=None, tokenizer=None, ner_model=None, mask_m
                 text_list = mask_and_replace(text_list, i + 1, model=mask_model, tokenizer=tokenizer, score_threshold=neighbours_threshold, is_neighbour=True)
 
     tokens_to_text = tokenizer.convert_tokens_to_string(text_list)
-    fixed_text = unspace_decimal_numbers(tokens_to_text)
+    fixed_text = unspace_quotes(unspace_decimal_numbers(tokens_to_text))
     return fixed_text

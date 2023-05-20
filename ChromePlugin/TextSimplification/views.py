@@ -9,9 +9,8 @@ from django.shortcuts import render
 import json
 from django.contrib.auth.models import User #####
 from django.http import JsonResponse , HttpResponse ####
-from hebrew_ts.hebrew_ts import text_simplification_pipeline
+from hebrew_ts.hebrew_text_simplification import text_simplification_pipeline
 
-import wikipedia
 
 def index(request):
     return render(request, "HTML/popup.html")
