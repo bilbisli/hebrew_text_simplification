@@ -17,7 +17,7 @@ def main():
     # df = pd.read_csv(dataset_file_name).iloc[238:241,:]
     df = pd.read_csv(dataset_file_name)
     simplifed_list = []
-    for r_index, row in tqdm(df.iterrows(), desc='simplifying', len=len(df)):
+    for r_index, row in tqdm(df.iterrows(), desc='simplifying', total=len(df)):
         try:
             simp = text_simplification_pipeline(row['text'], word_sub=True, sentence_filter=False)
             simplifed_list.append(simp)
@@ -28,7 +28,7 @@ def main():
 
     summarized_list = []
     sentences_count_after_summ = []
-    for r_index, row in tqdm(df.iterrows(), desc='summarizing', len=len(df)):
+    for r_index, row in tqdm(df.iterrows(), desc='summarizing', total=len(df)):
         try:
             summ = text_simplification_pipeline(row['simplified'], word_sub=False, sentence_filter=True)
             summarized_list.append(summ)
@@ -40,7 +40,7 @@ def main():
     df.to_csv(file_name, encoding='utf-8-sig')
 
     summ_no_simp_list = []
-    for r_index, row in tqdm(df.iterrows(), desc='only summary', len=len(df)):
+    for r_index, row in tqdm(df.iterrows(), desc='only summary', total=len(df)):
         try:
             summ = text_simplification_pipeline(row['text'], word_sub=False, sentence_filter=True)
             summ_no_simp_list.append(summ)
@@ -51,7 +51,7 @@ def main():
     df.set_index('page id', inplace=True)
     df = df.astype({'title': 'string', 'text': 'string', 'simplified': 'string', 'summary': 'string', 'only summary': 'string'})
     df.to_csv(file_name, encoding='utf-8-sig')
-    
+
 
 if __name__ == '__main__':
     main()
