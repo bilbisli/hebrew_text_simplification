@@ -98,8 +98,6 @@ def simplify_words(text, index_list=None, tokenizer=None, ner_model=None, mask_m
         index_list = find_mask_index(text_list, ner_mask, check_frequency=check_frequency, new_line_model_token=new_line_model_token)
     words_bar = tqdm(enumerate(index_list), desc='word masking', leave=False, total=len(index_list), disable=len(index_list)==0)
 
-    neighb = False
-
     for i, mask_word in words_bar:
 
         if mask_word:
@@ -108,10 +106,6 @@ def simplify_words(text, index_list=None, tokenizer=None, ner_model=None, mask_m
 
             if prev_word != text_list[i] and i + 1 < len(index_list) and not ner_mask[i + 1] and not index_list[i + 1] and not is_not_word(text_list[i + 1]):
                 text_list = mask_and_replace(text_list, i + 1, model=mask_model, tokenizer=tokenizer, score_threshold=neighbours_threshold, is_neighbour=True)
-                neighb = True
-                
-        else:
-            neighb = False
 
     tokens_to_text = tokenizer.convert_tokens_to_string(text_list)
     fixed_text = unspace_decimal_numbers(tokens_to_text)
