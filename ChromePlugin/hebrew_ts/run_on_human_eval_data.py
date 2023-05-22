@@ -23,20 +23,20 @@ def main():
             simplifed_list.append(simp)
         except RuntimeError:
             df.drop(index=r_index, inplace=True)
-    df['simplified'] = simplifed_list
+    df['only simplified'] = simplifed_list
     df.to_csv(file_name, encoding='utf-8-sig')
 
     summarized_list = []
     sentences_count_after_summ = []
     for r_index, row in tqdm(df.iterrows(), desc='summarizing', total=len(df)):
         try:
-            summ = text_simplification_pipeline(row['simplified'], word_sub=False, sentence_filter=True)
+            summ = text_simplification_pipeline(row['only simplified'], word_sub=False, sentence_filter=True)
             summarized_list.append(summ)
             sentences_count_after_summ.append([len(paragraph.split('. ')) for paragraph in summ.split('\n')])
         except RuntimeError:
             df.drop(index=r_index, inplace=True)
-    df['summary'] = summarized_list
-    df['sentence counts after summarization'] = sentences_count_after_summ
+    df['simplified + summary'] = summarized_list
+    df['paragraph sentence counts after summarization'] = sentences_count_after_summ
     df.to_csv(file_name, encoding='utf-8-sig')
 
     summ_no_simp_list = []
@@ -49,7 +49,7 @@ def main():
     df['only summary'] = summ_no_simp_list
 
     df.set_index('page id', inplace=True)
-    df = df.astype({'title': 'string', 'text': 'string', 'simplified': 'string', 'summary': 'string', 'only summary': 'string'})
+    df = df.astype({'title': 'string', 'text': 'string', 'only simplified': 'string', 'simplified + summary': 'string', 'only summary': 'string'})
     df.to_csv(file_name, encoding='utf-8-sig')
 
 
