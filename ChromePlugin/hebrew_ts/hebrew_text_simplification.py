@@ -16,12 +16,16 @@ def hebrew_ts_cli(*args, **kwargs):
     return text_simplification_pipeline(*args, **kwargs)
 
 def text_simplification_pipeline(text, score_threshold=0.32, neighbours_threshold=0.7, word_sub=True, sentence_filter=True, new_line_tok='\n', new_line_model_token='<NL>'):
+    """
+    Performs the text simplification pipeline.
+    It takes the input text and applies word substitution and sentence filtering based on the specified parameters.
+    Returns the simplified text.
+    """
     if os.path.isfile(text):
         with open(text, 'r', encoding='utf-8') as f:
             text = f.read()
 
     simp_list = []
-
     paragraphs = [p for p in text.split(new_line_tok) if p != '' and not p.isspace()]
     for paragraph in paragraphs:
         if word_sub:

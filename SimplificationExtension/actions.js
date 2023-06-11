@@ -175,10 +175,11 @@ document.addEventListener("mouseup", function (event) {
 });
 
 document.addEventListener("mousedown", function (event) {
+  // Event listener for mousedown event to hide the tooltip
   tooltip.hide();
 });
 
 chrome.runtime.connect().onDisconnect.addListener(function () {
-  // clean up when content script gets disconnected
+  // Clean up when content script gets disconnected
   // console.log("cleaned");
 });
