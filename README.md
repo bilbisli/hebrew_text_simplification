@@ -26,17 +26,13 @@ To set up SimplHe on your local machine, please follow these steps:
 
 ```bash
 ~ git clone https://github.com/bilbisli/hebrew_text_simplification.git
-~ cd hebrew_text_simplification
-~ cd pluginEnv
-~ cd Scripts
-~ cmd
-~ activate
-~ cd ../..       # Now you should be in the "hebrew_text_simplification" folder
-~ cd ChromePlugin
-~ python manage.py runserver
+~ python -m venv ts_env
+~ .\ts_env\Scripts\activate # command for windows; for POSIX run: source ts_env/bin/activate
+~ pip install -r requirements.txt
+~ python .\ChromePlugin\manage.py runserver
 ```
 
-After running the `python manage.py runserver` command, the SimplHe system will start, and you can proceed to the next steps.
+After running the `python .\ChromePlugin\manage.py runserver` command, the SimplHe system will start, and you can proceed to the next steps.
 
 ## Usage
 
