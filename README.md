@@ -29,7 +29,7 @@ To set up SimplHe on your local machine, please follow these steps:
 ~ python -m venv ts_env
 ~ .\ts_env\Scripts\activate # command for windows; for POSIX run: source ts_env/bin/activate
 ~ pip install -r requirements.txt
-~ python .\ChromePlugin\manage.py runserver
+~ python .\ChromePlugin\manage.py runserver   # this may take a while, especially at the first time run due to model loading
 ```
 
 After running the `python .\ChromePlugin\manage.py runserver` command, the SimplHe system will start, and you can proceed to the next steps.
@@ -48,7 +48,6 @@ Once the SimplHe system is up and running, follow these instructions to use the 
    - Replace complex words and sentence structure: This level combines both simplification levels, offering a comprehensive simplification of the text.
 6. Customize the appearance of the simplified text by adjusting the font size and color as per your preference.
 7. Read and comprehend the simplified text in the new window below the original text.
-
 
 
 ![Alt text](pluginDemo.gif)
