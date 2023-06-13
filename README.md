@@ -29,7 +29,7 @@ To set up SimplHe on your local machine, please follow these steps:
 ~ python -m venv ts_env
 ~ .\ts_env\Scripts\activate # command for windows; for POSIX run: source ts_env/bin/activate
 ~ pip install -r requirements.txt
-~ python .\ChromePlugin\manage.py runserver
+~ python .\ChromePlugin\manage.py runserver   # this may take a while, especially at the first run due to models loading
 ```
 
 After running the `python .\ChromePlugin\manage.py runserver` command, the SimplHe system will start, and you can proceed to the next steps.
