@@ -21,10 +21,10 @@ To set up SimplHe on your local machine, please follow these steps:
 1. Install [**`python 3.9.13`**](https://www.python.org/downloads/release/python-3913/)
 2. Navigate to the directory to place the project in
 3. Open a terminal
-4. Execute the following commands in the terminal:
+4. Execute the following commands in the terminal (must have [`git`](https://git-scm.com/downloads) installed):
 
 ```bash
-~ git clone https://github.com/bilbisli/hebrew_text_simplification.git  # must have [`git`](https://git-scm.com/downloads) installed
+~ git clone https://github.com/bilbisli/hebrew_text_simplification.git
 ~ cd hebrew_text_simplification
 ~ py -3.9 -m venv ts_env
 ~ .\ts_env\Scripts\activate # command for windows; for POSIX run: source ts_env/bin/activate
