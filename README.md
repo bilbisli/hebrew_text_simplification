@@ -18,16 +18,15 @@ SimplHe is an Automatic Text Simplification system designed specifically for the
 ## Installation and Setup
 
 To set up SimplHe on your local machine, please follow these steps:
-
-1. Create a new folder on your desktop and name it "Text Simplification."
-2. Open the "Text Simplification" folder using Visual Studio Code.
-3. Open the terminal in Visual Studio Code.
+1. install [**`python 3.9.13`**](https://www.python.org/downloads/release/python-3913/)
+2. Navigate to the directory to place the project in.
+3. Open a terminal
 4. Execute the following commands in the terminal:
 
 ```bash
 ~ git clone https://github.com/bilbisli/hebrew_text_simplification.git
 ~ cd hebrew_text_simplification
-~ python -m venv ts_env
+~ py -3.9 -m venv ts_env
 ~ .\ts_env\Scripts\activate # command for windows; for POSIX run: source ts_env/bin/activate
 ~ pip install -r requirements.txt
 ~ python .\ChromePlugin\manage.py runserver   # this may take a while, especially at the first run due to models loading
@@ -51,10 +50,15 @@ Once the SimplHe system is up and running, follow these instructions to use the 
 7. Read and comprehend the simplified text in the new window below the original text.
 
 
-
 ![Alt text](pluginDemo.gif)
 
 
+## System Pipeline
+![Alt text](pipeline_with_icon.png)
+
+
+## System Architecture
+![Alt text](SimplHe architecture diagram.png)
 
 
 ## Support and Contribution
