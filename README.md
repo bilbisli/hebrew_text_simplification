@@ -26,6 +26,7 @@ To set up SimplHe on your local machine, please follow these steps:
 
 ```bash
 ~ git clone https://github.com/bilbisli/hebrew_text_simplification.git
+~ cd hebrew_text_simplification
 ~ python -m venv ts_env
 ~ .\ts_env\Scripts\activate # command for windows; for POSIX run: source ts_env/bin/activate
 ~ pip install -r requirements.txt
