@@ -18,7 +18,7 @@ SimplHe is an Automatic Text Simplification system designed specifically for the
 ## Installation and Setup
 
 To set up SimplHe on your local machine, please follow these steps:
-1. install [**`python 3.9.13`**](https://www.python.org/downloads/release/python-3913/)
+1. Install [**`python 3.9.13`**](https://www.python.org/downloads/release/python-3913/)
 2. Navigate to the directory to place the project in.
 3. Open a terminal
 4. Execute the following commands in the terminal:
