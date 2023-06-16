@@ -58,7 +58,7 @@ Once the SimplHe system is up and running, follow these instructions to use the 
 
 
 ## System Architecture
-![Alt text](SimplHe_architecture_diagram.png)
+![Alt text](SimplHe_architecture_diagram.svg)
 
 
 ## Support and Contribution
