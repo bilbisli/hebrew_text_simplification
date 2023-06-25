@@ -65,5 +65,5 @@ Once the SimplHe system is up and running, follow these instructions to use the 
 
 For any issues, questions, or feedback regarding the SimplHe system, please refer to the GitHub repository [bilbisli/hebrew_text_simplification](https://github.com/bilbisli/hebrew_text_simplification). You can open a new issue or contribute to the project by following the guidelines provided in the repository.
 
-*Please note that SimplHe is a research project and should be used as a supportive
+*Please note that SimplHe is a research project and should be used accordingly
 
